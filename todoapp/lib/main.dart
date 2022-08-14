@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  // first two
+  // first fours
   runApp(const MyApp());
 }
 

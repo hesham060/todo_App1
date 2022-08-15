@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/layout/home_layout.dart';
 
 void main() {
-  // last two 
+  // last last
  runApp(const MyApp());
 }
 
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      home: HomeLayout(),
     
     );
   }

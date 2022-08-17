@@ -28,6 +28,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   var datecontroller = TextEditingController();
   var timecontroller = TextEditingController();
   var formKey = GlobalKey<FormState>();
+   List<Map> tasks =[];
   @override
   void initState() {
     super.initState();
@@ -50,11 +51,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                 time: timecontroller.text,
                 date: datecontroller.text,
               ).then((value) {
-                Navigator.pop(context);
-                isBottomSheetShown = false;
-                setState(() {
-                  fabIcon = Icons.edit;
-                });
+                
               });
             }
           } else {
@@ -141,7 +138,12 @@ class _HomeLayoutState extends State<HomeLayout> {
                   ),
                 );
               },
-            );
+            ).closed.then((value) {
+                isBottomSheetShown = false;
+                setState(() {
+                  fabIcon = Icons.edit;
+                });
+            });
             isBottomSheetShown = true;
             setState(() {
               fabIcon = Icons.add;
@@ -188,6 +190,9 @@ class _HomeLayoutState extends State<HomeLayout> {
       },
       onOpen: (database) {
         print('database is opened');
+        getDataFromDatabase(database).then((value) {
+           tasks=value;
+        });
       },
     );
   }
@@ -207,5 +212,11 @@ class _HomeLayoutState extends State<HomeLayout> {
         return null;
       });
     });
+  }
+
+  Future<List<Map>> getDataFromDatabase(database)async{
+   return  await database.rawQuery(
+      'SELECT * FROM tasks'
+    );
   }
 }

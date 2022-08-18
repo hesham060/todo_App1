@@ -1,9 +1,14 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:todoapp/layout/home_layout.dart';
+import 'package:todoapp/shared/bloc_observer.dart';
 
 void main() {
+  Bloc.observer = MyBlocObserver();
+
+  runApp(const MyApp());
+
   // last last
- runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +19,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: HomeLayout(),
-    
     );
   }
 }

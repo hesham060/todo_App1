@@ -5,6 +5,7 @@ import 'package:todoapp/shared/bloc_observer.dart';
 
 void main() {
   Bloc.observer = MyBlocObserver();
+  
 
   runApp(const MyApp());
 

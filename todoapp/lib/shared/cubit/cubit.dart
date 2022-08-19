@@ -44,12 +44,6 @@ class AppCubit extends Cubit<AppStates> {
         });
       },
       onOpen: (database) {
-        getDataFromDatabase(database).then(
-          (value) {
-            tasks = value;
-            emit(AppGetDataFromDatabaseState());
-          },
-        );
         print('database is opened');
       },
     ).then((value) {
@@ -69,6 +63,12 @@ class AppCubit extends Cubit<AppStates> {
               'INSERT INTO tasks( title, date, time, status) VALUES("$title", "$date", "$time", "new")')
           .then((value) {
         print('$value inserted sucessfully');
+        getDataFromDatabase(database).then(
+          (value) {
+            tasks = value;
+            emit(AppGetDataFromDatabaseState());
+          },
+        );
 
         emit(AppInsertedToDatabaseState());
       }).catchError((error) {
@@ -81,21 +81,18 @@ class AppCubit extends Cubit<AppStates> {
   List<Map> tasks = [];
 
   Future<List<Map>> getDataFromDatabase(database) async {
+    emit(AppLoadingDataFromDatabaseState());
     return await database.rawQuery('SELECT * FROM tasks');
   }
+
   bool? isBottomSheetShown = false;
   IconData? fabIcon = Icons.edit;
 
+  void changeBottomSheetState(
+      {@required bool? isShow, @required IconData? icon}) {
+    isBottomSheetShown = isShow;
+    fabIcon = icon;
 
-  void changeBottomSheetState({@required bool? isShow, @required IconData? icon }){
-
-
-
-    isBottomSheetShown=isShow;
-    fabIcon =icon;
-
-
-     emit( AppChangeBottomSheetState());
-
+    emit(AppChangeBottomSheetState());
   }
 }

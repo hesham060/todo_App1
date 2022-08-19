@@ -11,21 +11,17 @@ class NewTasks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
-    return BlocConsumer<AppCubit,AppStates>(
-      listener: (context, state) {
-        
-      },
+    return BlocConsumer<AppCubit, AppStates>(
+      listener: (context, state) {},
       builder: (context, state) {
-        AppCubit cubit = AppCubit.get(context);
+        var tasks = AppCubit.get(context).newTasks;
         return ListView.separated(
-          itemBuilder: (context, index) => buildTaskItem(cubit. tasks[index]),
-          separatorBuilder: ((context, index) => Container(
-                height: 15,
-              )),
-          itemCount:cubit.tasks.length);
+            itemBuilder: (context, index) => buildTaskItem(tasks[index],context),
+            separatorBuilder: ((context, index) => Container(
+                  height: 15,
+                )),
+            itemCount: tasks.length);
       },
-     
     );
   }
 }

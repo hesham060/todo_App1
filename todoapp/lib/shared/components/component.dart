@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/shared/cubit/cubit.dart';
 
 Widget defaultTextFormField(
         {String? Function(String?)? validate,
@@ -34,10 +35,9 @@ Widget defaultTextFormField(
         enabled: isClicable,
       ),
     );
-     Widget buildTaskItem(Map model)=>
-      Padding(
-       padding: const EdgeInsets.all(8.0),
-       child: Column(
+Widget buildTaskItem(Map model, context) => Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -45,27 +45,47 @@ Widget defaultTextFormField(
               CircleAvatar(
                 radius: 40,
                 child: Text(
-                  '${model ['time']}',
+                  '${model['time']}',
                   style: TextStyle(fontSize: 18),
                 ),
               ),
               SizedBox(
                 width: 10,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                     '${model ['title']}',
-                    style: TextStyle(fontSize: 25),
-                  ),
-                  Text(
-                     '${model ['date']}',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ],
-              )
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      '${model['title']}',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                    Text(
+                      '${model['date']}',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                  onPressed: () {
+                    AppCubit.get(context)
+                        .updateData(status: 'done', id: model['id']);
+                  },
+                  icon: Icon(
+                    Icons.check_box,
+                    color: Colors.green,
+                  )),
+              IconButton(
+                  onPressed: () {
+
+                    AppCubit.get(context).updateData(status: 'archive', id: model['id']) ;
+                  },
+                  icon: Icon(
+                    Icons.archive,
+                    color: Colors.black45,
+                  )),
             ],
           ),
         ],

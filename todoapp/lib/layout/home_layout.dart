@@ -23,6 +23,7 @@ class HomeLayout extends StatelessWidget {
         listener: (context, state) {
           if (state is AppInsertedToDatabaseState) {
             Navigator.pop(context);
+           
           }
         },
         builder: (context, state) {
@@ -43,21 +44,7 @@ class HomeLayout extends StatelessWidget {
                         title: titlecontroller.text,
                         time: timecontroller.text,
                         date: datecontroller.text);
-                    // insertDataToDatabase(
-                    //   title: titlecontroller.text,
-                    //   time: timecontroller.text,
-                    //   date: datecontroller.text,
-                    // ).then((value) {
-                    //   getDataFromDatabase( database).then((value) {
-                    //     Navigator.pop(context);
-                    //     // setState(() {
-                    //     //   tasks = value;
-                    //     //   fabIcon = Icons.edit;
-                    //     //   isBottomSheetShown = false;
-                    //     //   print(tasks);
-                    //     // });
-                    //   });
-                    // });
+                    
                   }
                 } else {
                   scafoldKey.currentState!
